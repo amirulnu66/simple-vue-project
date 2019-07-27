@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Bootstrap 101 Template</title>
+
+    <!-- Bootstrap -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="js/vue.js"></script>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+        <div id="app">
+            <div class="col-md-6 col-md-offset-3">
+                <h2>Bazzar List</h2>
+                <form @submit.prevent="addItem">
+                    <input type="text" name="" class="form-control" v-model='newTtem'>
+                    
+                </form>
+                <hr>
+                <ul class="list-group">
+                    <!-- looping -->
+                    <li v-for='(item, index) in items' :key="index" class="list-group-item">
+                        <button class="btn btn-xs btn-danger" v-on:click='removeItem(index)'>Remove</button>
+                        
+                        {{item.name}} -
+                        <input type="number" v-model='item.price'>
+                    </li>
+                    <li class="list-group-item">Total = {{total}}</li>
+                </ul>
+            </div>
+        </div>    
+
+    </div>
+
+    <script>
+        new Vue({
+
+            el: '#app',
+            data:{
+                items: [
+                    {name : 'rice', price:'25.50'},
+                    {name : 'white', price:'30.50'},
+                    {name : 'oil', price:'50'},
+                ],
+                newTtem: '',
+            },
+            computed:{
+                total(){
+                    var total = 0
+                    this.items.forEach(item =>{
+                        total += parseFloat(item.price) 
+                    });
+                    return total
+                },
+            },
+            methods:{
+                addItem(){
+                    this.items.push({
+                        name: this.newTtem,
+                        price: 0.0,
+                    });
+                },
+            removeItem(index) {
+                this.items.splice(index, 1)
+            }
+            }
+
+        });
+    
+    
+    
+    </script>
+
+
+
+
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  </body>
+</html>
